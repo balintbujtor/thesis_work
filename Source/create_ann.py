@@ -21,8 +21,8 @@ def connected_component_labeling(image, class_no):
 
     # 1 to 255 conversion
     _, im_thres = cv2.threshold(binary, 0, 255, cv2.THRESH_BINARY)
-    cv2.imshow('threshold', im_thres)
-    cv2.waitKey(0)
+    # cv2.imshow('threshold', im_thres)
+    # cv2.waitKey(0)
 
     # calculating the components
     num_labels, labels_im = cv2.connectedComponents(im_thres)
@@ -53,8 +53,8 @@ def im_show_components(labels):
     # set bg label to black
     labeled_img[label_hue == 0] = 0
 
-    cv2.imshow('labeled.png', labeled_img)
-    cv2.waitKey(0)
+    # cv2.imshow('labeled.png', labeled_img)
+    # cv2.waitKey(0)
 
 
 # global variable for testing
@@ -77,7 +77,7 @@ def create_bounding_box(label_num, label_im):
 
     # going through all components in an image
     for component in range(1, label_num):
-        new_comp = False
+        # new_comp = False
         # print(component)
 
         # binarizing the image then converting it to 255
@@ -89,13 +89,13 @@ def create_bounding_box(label_num, label_im):
 
         # if the area of the bounding box is bigger than a threshold the we save the bbox
         if h*w > 50:
-            new_comp = True
+            # new_comp = True
             bboxes.append([x, y, w, h])
             all_bboxes += 1
-            bbox_im = cv2.rectangle(img_conv, (x, y), (x + w, y + h), (0, 0, 255), 1)
-        if component == label_num - 1 and new_comp is True:
-            cv2.imshow('bbox', bbox_im)
-            cv2.waitKey(0)
+            # bbox_im = cv2.rectangle(img_conv, (x, y), (x + w, y + h), (0, 0, 255), 1)
+        # if component == label_num - 1 and new_comp is True:
+            # cv2.imshow('bbox', bbox_im)
+            # cv2.waitKey(0)
 
     return bboxes
 
@@ -128,9 +128,9 @@ carla_dataset = {
 # -------------------------
 
 # folders where carla images contained per type
-folder_path_sem = "/media/Balint/carla_images/semantic/"
-folder_path_conv = "/media/Balint/carla_images/converted/"
-folder_path_rgb = "/media/Balint/carla_images/rgb/"
+folder_path_sem = "C:\\Repos\\data\\carla_images_x1\\semantic\\all\\"
+folder_path_conv = "C:\\Repos\\data\\carla_images_x1\\converted\\all\\"
+folder_path_rgb = "C:\\Repos\\data\\carla_images_x1\\rgb\\all\\"
 
 # unique annotation id number
 cur_ann = 1
@@ -152,25 +152,18 @@ else:
     raise Exception
 
 # looping through all images
-for i in range(2048, 2052):
+for i in range(len(sem_files)):
 
     # creating full path
     full_path_sem = folder_path_sem + sem_files[i]
     full_path_conv = folder_path_conv + conv_files[i]
 
-    print(sem_files[i], conv_files[i])
+    # print(sem_files[i], conv_files[i])
 
     # condition if we are in town10 / the file name is different in that case
-    if sem_files[i][5] == '0':
-        TOWN_NO = int(sem_files[i][4] + sem_files[i][5])
-        IM_NO = int(sem_files[i][10] + sem_files[i][11] + sem_files[i][12] + sem_files[i][13])
-        IM_ID = TOWN_NO*10000 + IM_NO
-
-    else:
-        # creating town no and unique id from it
-        TOWN_NO = int(sem_files[i][4])
-        IM_NO = int(sem_files[i][9] + sem_files[i][10] + sem_files[i][11] + sem_files[i][12])
-        IM_ID = TOWN_NO*10000 + IM_NO
+    TOWN_NO = int(sem_files[i][4] + sem_files[i][5])
+    IM_NO = int(sem_files[i][10] + sem_files[i][11] + sem_files[i][12] + sem_files[i][13])
+    IM_ID = TOWN_NO*10000 + IM_NO
 
     print(TOWN_NO, IM_NO, IM_ID)
 
@@ -187,20 +180,20 @@ for i in range(2048, 2052):
     }
     carla_dataset["images"].append(new_im_dict)
 
-    print(new_im_dict)
+    # print(new_im_dict)
 
     # reading the image
     img = cv2.imread(full_path_sem)
     img_conv = cv2.imread(full_path_conv)
-    print(full_path_sem)
-    print(rgb_files[i])
+    # print(full_path_sem)
+    # print(rgb_files[i])
 
-    cv2.imshow('orig', img_conv)
-    cv2.waitKey(0)
+    # cv2.imshow('orig', img_conv)
+    # cv2.waitKey(0)
 
     # cycling through the category dict to check if a picture has that kind of object in it
     for key in category_dict:
-        print(key)
+        # print(key)
 
         # saving the number of labels and the labelled image of a given cat
         no_labels, im_labels = connected_component_labeling(img, key)
@@ -236,7 +229,7 @@ for i in range(2048, 2052):
                             'id': cur_ann
                             }
 
-            print(new_ann_dict)
+            # print(new_ann_dict)
 
             carla_dataset["annotations"].append(new_ann_dict)
             cur_ann += 1
@@ -247,5 +240,5 @@ if all_bboxes != len(carla_dataset["annotations"]):
     raise Exception
 
 # saving the json file
-with open('/media/Balint/annotations.json', 'w') as file:
+with open('C:\\Repos\\data\\carla_annotations.json', 'w') as file:
     json.dump(carla_dataset, file)
