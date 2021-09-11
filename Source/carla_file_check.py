@@ -2,10 +2,10 @@ from os import listdir
 from os.path import isfile, join
 
 # folders where carla images contained per type
-folder_path_sem = "C:\\Repos\\data\\carla_images_x1\\semantic\\all\\"
-folder_path_conv = "C:\\Repos\\data\\carla_images_x1\\converted\\all\\"
-folder_path_rgb = "C:\\Repos\\data\\carla_images_x1\\rgb\\all\\"
-folder_path_depth = "C:\\Repos\\data\\carla_images_x1\\depth\\all\\"
+folder_path_sem = "/home/balint/carla_images/semantic/all/"
+folder_path_conv = "/home/balint/carla_images/converted/all/"
+folder_path_rgb = "/home/balint/carla_images/rgb/all/"
+folder_path_depth = "/home/balint/carla_images/depth/all/"
 
 # unique annotation id number
 cur_ann = 1
@@ -60,14 +60,12 @@ for i in range(len(sem_files)):
                 prev_sem_im_num = 1
 
         if not (sem_im_num == conv_im_num == rgb_im_num == depth_im_num):
-            print("hello")
             print(sem_files[i], conv_files[i], rgb_files[i], depth_files[i])
 
         if not (sem_im_num == prev_sem_im_num + 1):
             print(sem_im_num, prev_sem_im_num)
             print(sem_files[i], sem_files[i - 1])
 
-    except ValueError as ve:
-        print("error: ", ve)
+    except ValueError:
         print(sem_files[i], conv_files[i], rgb_files[i], depth_files[i])
         break

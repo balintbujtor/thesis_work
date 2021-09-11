@@ -128,9 +128,9 @@ carla_dataset = {
 # -------------------------
 
 # folders where carla images contained per type
-folder_path_sem = "C:\\Repos\\data\\carla_images_x1\\semantic\\all\\"
-folder_path_conv = "C:\\Repos\\data\\carla_images_x1\\converted\\all\\"
-folder_path_rgb = "C:\\Repos\\data\\carla_images_x1\\rgb\\all\\"
+folder_path_sem = "/home/balint/carla_images/semantic/all/"
+folder_path_conv = "/home/balint/carla_images/converted/all/"
+folder_path_rgb = "/home/balint/carla_images/rgb/all/"
 
 # unique annotation id number
 cur_ann = 1
@@ -172,8 +172,8 @@ for i in range(len(sem_files)):
       "license": "",
       "file_name": str(rgb_files[i]),
       "coco_url": "",
-      "height": 1024,
-      "width": 576,
+      "height": 576,
+      "width": 1024,
       "date_captured": "",
       "flickr_url": "",
       "id": IM_ID
@@ -240,5 +240,5 @@ if all_bboxes != len(carla_dataset["annotations"]):
     raise Exception
 
 # saving the json file
-with open('C:\\Repos\\data\\carla_annotations.json', 'w') as file:
+with open('/home/balint/carla_annotations.json', 'w') as file:
     json.dump(carla_dataset, file)

@@ -73,6 +73,7 @@ class ListDataset(Dataset):
         self.min_size = self.img_size - 3 * 32
         self.max_size = self.img_size + 3 * 32
         self.batch_count = 0
+        self.jitter = transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.1, hue=0.005)
 
     def __getitem__(self, index):
 
@@ -82,8 +83,14 @@ class ListDataset(Dataset):
 
         img_path = self.img_files[index % len(self.img_files)].rstrip()
 
-        # Extract image as PyTorch tensor
-        img = transforms.ToTensor()(Image.open(img_path).convert('RGB'))
+        # Extract image
+        img = Image.open(img_path).convert('RGB')
+
+        if self.augment:
+            img = self.jitter(img)
+
+        # convert to Tensor
+        img = transforms.ToTensor()(img)
 
         # Handle images with less than three channels
         if len(img.shape) != 3:

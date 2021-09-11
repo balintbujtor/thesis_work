@@ -18,6 +18,7 @@ from torchvision import datasets
 from torchvision import transforms
 from torch.autograd import Variable
 import torch.optim as optim
+import statistics
 
 
 def evaluate(model, path, iou_thres, conf_thres, nms_thres, img_size, batch_size):
@@ -26,7 +27,11 @@ def evaluate(model, path, iou_thres, conf_thres, nms_thres, img_size, batch_size
     # Get dataloader
     dataset = ListDataset(path, img_size=img_size, augment=False, multiscale=False)
     dataloader = torch.utils.data.DataLoader(
-        dataset, batch_size=batch_size, shuffle=False, num_workers=1, collate_fn=dataset.collate_fn
+        dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=1,
+        collate_fn=dataset.collate_fn,
     )
 
     Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
@@ -48,7 +53,6 @@ def evaluate(model, path, iou_thres, conf_thres, nms_thres, img_size, batch_size
             outputs = non_max_suppression(outputs, conf_thres=conf_thres, nms_thres=nms_thres)
 
         sample_metrics += get_batch_statistics(outputs, targets, iou_threshold=iou_thres)
-
     # Concatenate sample statistics
     true_positives, pred_scores, pred_labels = [np.concatenate(x, 0) for x in list(zip(*sample_metrics))]
     precision, recall, AP, f1, ap_class = ap_per_class(true_positives, pred_scores, pred_labels, labels)
@@ -66,7 +70,7 @@ if __name__ == "__main__":
     parser.add_argument("--iou_thres", type=float, default=0.5, help="iou threshold required to qualify as detected")
     parser.add_argument("--conf_thres", type=float, default=0.001, help="object confidence threshold")
     parser.add_argument("--nms_thres", type=float, default=0.5, help="iou thresshold for non-maximum suppression")
-    parser.add_argument("--n_cpu", type=int, default=8, help="number of cpu threads to use during batch generation")
+    parser.add_argument("--n_cpu", type=int, default=1, help="number of cpu threads to use during batch generation")
     parser.add_argument("--img_size", type=int, default=416, help="size of each image dimension")
     opt = parser.parse_args()
     print(opt)
@@ -98,8 +102,10 @@ if __name__ == "__main__":
         batch_size=8,
     )
 
-    print("Average Precisions:")
+    print("AP, recall and precision for each class:")
     for i, c in enumerate(ap_class):
-        print(f"+ Class '{c}' ({class_names[c]}) - AP: {AP[i]}")
+        print(f"+ Class '{c}' ({class_names[c]}) - AP: {AP[i]}, recall: {recall[i]}, precision: {precision[i]}")
 
+    print(f"Average recall: {recall.mean()}")
+    print(f"Average precision: {precision.mean()}")
     print(f"mAP: {AP.mean()}")
