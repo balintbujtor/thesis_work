@@ -39,3 +39,5 @@ Thumbs.db
 # Custom data in Yolo #
 #######################
 /PyTorch-YOLOv3/data/
+PyTorch-YOLOv3/weights/better_model_43.pth
+PyTorch-YOLOv3/weights/darknet53.conv.74
