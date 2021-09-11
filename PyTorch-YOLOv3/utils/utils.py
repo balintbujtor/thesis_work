@@ -275,8 +275,8 @@ def build_targets(pred_boxes, pred_cls, target, anchors, ignore_thres):
     nG = pred_boxes.size(2)
 
     # Output tensors
-    obj_mask = ByteTensor(nB, nA, nG, nG).fill_(0)
-    noobj_mask = ByteTensor(nB, nA, nG, nG).fill_(1)
+    obj_mask = ByteTensor(nB, nA, nG, nG).fill_(0).bool()
+    noobj_mask = ByteTensor(nB, nA, nG, nG).fill_(1).bool()
     class_mask = FloatTensor(nB, nA, nG, nG).fill_(0)
     iou_scores = FloatTensor(nB, nA, nG, nG).fill_(0)
     tx = FloatTensor(nB, nA, nG, nG).fill_(0)
@@ -298,6 +298,8 @@ def build_targets(pred_boxes, pred_cls, target, anchors, ignore_thres):
     gw, gh = gwh.t()
     gi, gj = gxy.long().t()
     # Set masks
+    gi = torch.clamp(gi, 0, noobj_mask.size()[2] - 1)
+    gj = torch.clamp(gj, 0, noobj_mask.size()[3] - 1)
     obj_mask[b, best_n, gj, gi] = 1
     noobj_mask[b, best_n, gj, gi] = 0
 
