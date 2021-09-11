@@ -1,0 +1,68 @@
+iou = 0.1
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.4098976657739459, recall: 0.7701923076923077, precision: 0.024486426999266325
++ Class '1' (vehicle) - AP: 0.7090882004313093, recall: 0.9876338410496155, precision: 0.047863010494927936
++ Class '2' (traffic sign) - AP: 0.5912483527561625, recall: 0.9190915542938254, precision: 0.0290410836024399
++ Class '3' (traffic light) - AP: 0.6614437183408617, recall: 0.998678122934567, precision: 0.026825977346163404
+Average recall: 0.9188989564925789
+Average precision: 0.03205412461069939
+mAP: 0.5929194843255698
+
+iou = 0.25
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.3754140675539859, recall: 0.7038461538461539, precision: 0.022377109317681585
++ Class '1' (vehicle) - AP: 0.6630444013201986, recall: 0.9334941939375659, precision: 0.04523927851024644
++ Class '2' (traffic sign) - AP: 0.546969723880691, recall: 0.8630234208658624, precision: 0.02726946537495515
++ Class '3' (traffic light) - AP: 0.6176993021429926, recall: 0.9385327164573695, precision: 0.025210382416645954
+Average recall: 0.8597241212767379
+Average precision: 0.030024058904882283
+mAP: 0.550781873724467
+
+iou = 0.5
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.25251138276607843, recall: 0.4826923076923077, precision: 0.015346050379065786
++ Class '1' (vehicle) - AP: 0.4695144069670183, recall: 0.683456492233449, precision: 0.03312187563948899
++ Class '2' (traffic sign) - AP: 0.3403147423970265, recall: 0.5940383250532293, precision: 0.018770182992465016
++ Class '3' (traffic light) - AP: 0.4317840319084938, recall: 0.7045604758757436, precision: 0.018925540602918723
+Average recall: 0.6161869002136824
+Average precision: 0.021540912403484627
+mAP: 0.3735311410096543
+
+---------------------------------------------------------------------------------------------------------------
+conf thres = 0.5
+
+iou =0.1
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.38550805161258794, recall: 0.5942307692307692, precision: 0.27825303917154437
++ Class '1' (vehicle) - AP: 0.6859599413135697, recall: 0.8749811491479415, precision: 0.3238446081714668
++ Class '2' (traffic sign) - AP: 0.5670017039687056, recall: 0.7835344215755855, precision: 0.3340393343419062
++ Class '3' (traffic light) - AP: 0.6448791832751104, recall: 0.9081295439524124, precision: 0.331643736422882
+Average recall: 0.7902189709766771
+Average precision: 0.31694517952694984
+mAP: 0.5708372200424934
+
+iou=0.25
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.3561531953736766, recall: 0.5528846153846154, precision: 0.25889239081494825
++ Class '1' (vehicle) - AP: 0.6428648653888317, recall: 0.8316995928215956, precision: 0.30782540745702164
++ Class '2' (traffic sign) - AP: 0.5272255832323969, recall: 0.7416607523066004, precision: 0.3161875945537065
++ Class '3' (traffic light) - AP: 0.6044337987121122, recall: 0.8625247851949769, precision: 0.3149891383055757
+Average recall: 0.7471924364269471
+Average precision: 0.299473632782813
+mAP: 0.5326693606767543
+
+iou=0.5
+
+AP, recall and precision for each class:
++ Class '0' (person) - AP: 0.24331420924387134, recall: 0.4009615384615385, precision: 0.18775326429536246
++ Class '1' (vehicle) - AP: 0.4623216958826042, recall: 0.632936208716634, precision: 0.23425987943737442
++ Class '2' (traffic sign) - AP: 0.32974011784274415, recall: 0.5216465578424414, precision: 0.22239031770045387
++ Class '3' (traffic light) - AP: 0.42524676317887583, recall: 0.6701916721744877, precision: 0.2447501810282404
+Average recall: 0.5564339942987754
+Average precision: 0.2222884106153578
+mAP: 0.3651556965370239

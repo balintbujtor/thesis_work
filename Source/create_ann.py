@@ -53,8 +53,9 @@ def im_show_components(labels):
     # set bg label to black
     labeled_img[label_hue == 0] = 0
 
-    # cv2.imshow('labeled.png', labeled_img)
-    # cv2.waitKey(0)
+    #cv2.imshow('labeled.png', labeled_img)
+    #cv2.waitKey(0)
+    #cv2.imwrite("C:\\Users\\Balint\\Downloads\\labeled.png", labeled_img)
 
 
 # global variable for testing
@@ -128,9 +129,9 @@ carla_dataset = {
 # -------------------------
 
 # folders where carla images contained per type
-folder_path_sem = "C:\\Repos\\data\\carla_images_x1\\semantic\\all\\"
-folder_path_conv = "C:\\Repos\\data\\carla_images_x1\\converted\\all\\"
-folder_path_rgb = "C:\\Repos\\data\\carla_images_x1\\rgb\\all\\"
+folder_path_sem = "C:\\Users\\Balint\\Downloads\\semantic\\"
+folder_path_conv = "C:\\Users\\Balint\\Downloads\\converted\\"
+folder_path_rgb = "C:\\Users\\Balint\\Downloads\\rgb\\"
 
 # unique annotation id number
 cur_ann = 1
@@ -172,8 +173,8 @@ for i in range(len(sem_files)):
       "license": "",
       "file_name": str(rgb_files[i]),
       "coco_url": "",
-      "height": 1024,
-      "width": 576,
+      "height": 576,
+      "width": 1024,
       "date_captured": "",
       "flickr_url": "",
       "id": IM_ID
